@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caculator</title>
+</head>
+<body>
+    <div>
+        <div>
+            <p id="display">0</p>
+            <p id="display_operator">.</p>
+            
+        </div>
+        <div>
+            <p id="display_count">0</p>
+        </div>
+        <div>
+            <button id="btn9" onclick="pressNum9()">9</button>
+            <button id="btn8" onclick="pressNum8()">8</button>
+            <button id="btn8" onclick="pressNum7()">7</button>
+        </div>
+        <div>
+            <button id="plus" onclick="plus()">+</button>
+            <button id="delete" onclick="dele()">delete</button>
+            <button id="count" onclick="count()">count</button>
+        </div>
+        
+</body>
+<script>
+
+    let a = " "
+    let b = " "
+    let operator = " "
+    const count = document.getElementById("count")
+    const display_count = document.getElementById("display_count")
+    const display_operator = document.getElementById("display_operator")
+    const btn9 = document.getElementById("btn9")
+    const btn8 = document.getElementById("btn8")
+    const plus = document.getElementById("plus")
+    const dele = document.getElementById("delete")
+
+    btn9.addEventListener('click',function pressNum9(){
+        a += "9";
+        display.innerText = a;
+    });
+
+    btn8.addEventListener('click',function pressNum8(){
+        a += "8";
+        display.innerText = a;
+    });
+
+    plus.addEventListener('click',function add(){
+        if (a !== 0){
+            operator = "+";
+            display_operator.innerText = operator;
+        }
+    });
+
+    dele.addEventListener('click',function dele(){
+        if (a.length > 0){
+            a = a.slice(0, -1);
+            display.innerText = a;
+        }else {
+            display.innerText = 0;
+        }
+        
+    });
+
+
+
+
+
+
+</script>
+</html>

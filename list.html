@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        display:flex;
+        background-color: aquamarine;
+        border: solid black 2px;
+    }
+</style>
+<body>
+    <div class="container" id="pokemon-container">
+        <ul id="list"></ul>
+    </div>
+    <div id="pokemon-name">
+        <p id="display">show</p>
+    </div>
+    <div id="btn">
+        <button onclick="add()">Add</button>
+        <button onclick="add1()">FindPokemon</button>
+        <button onclick="clearItems()">clear</button>
+    </div>
+    <div>
+        <input id="input" type="input"/>
+    </div>
+</body>
+<script>
+
+    let display = document.getElementById("display")
+    const list = document.getElementById("list")
+    const input = document.getElementById("input")
+    
+
+    function add(){
+
+        const newli = document.createElement("li");
+        newli.innerText = input.value
+        list.appendChild(newli)
+        
+    }
+
+    function clearItems(){
+        const lastItems = list.lastElementChild;
+        lastItems.remove()
+    }
+
+
+
+    function add1(){
+        fetch("https://pokeapi.co/api/v2/pokemon/")
+            .then((response) => response.json())
+            .then((data) => console.log(data.name)
+           
+        )
+    }
+</script>
+</html>
