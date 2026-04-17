@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>หมากฮอส</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        #chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 60px);
+            grid-template-rows: repeat(8, 60px);
+            border: 5px solid #222;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        #chessboard div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .white { background-color: #ffffff; }
+        .black { background-color: #333333; }
+
+        
+        .selected {
+            background-color: #ffeb3b !important;
+            outline: 3px solid #f44336;
+            z-index: 10;
+        }
+
+        .black-p { color: #000; font-weight: bold; }
+        .white-p { color: #fff; text-shadow: 0 0 5px #000; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="chessboard"></div>
+
+    <script>
+        const board = document.getElementById('chessboard');
+        let isWhite = false;
+        let selectedSquare = null;
+
+        
+        for (let i = 0; i < 64; i++) {
+            const square = document.createElement('div');
+            const currentSquareIsWhite = isWhite;
+            
+            square.classList.add(currentSquareIsWhite ? 'white' : 'black');
+            square.dataset.index = i;
+
+            
+            if (!currentSquareIsWhite) {
+                if (i < 24) { 
+                    square.innerHTML = '<span class="piece black-p">0</span>';
+                } 
+                else if (i >= 40) {
+                    square.innerHTML = '<span class="piece white-p">1</span>';
+                }
+            }
+
+            board.appendChild(square);
+
+            
+            square.addEventListener('click', function() {
+                const currentIndex = parseInt(square.dataset.index);
+
+                
+                if (selectedSquare === null) {
+                    if (square.innerText !== "") {
+                        selectedSquare = square;
+                        square.classList.add('selected');
+                    }
+                } 
+                
+               
+                else {
+                    const fromIndex = parseInt(selectedSquare.dataset.index);
+                    const diff = Math.abs(currentIndex - fromIndex);
+
+                    
+                    if (square.innerText === "" && (diff === 7 || diff === 9) && square.classList.contains('black')) {
+                        movePiece(selectedSquare, square);
+                    } 
+                    
+                    
+                    else if (square.innerText === "" && (diff === 14 || diff === 18) && square.classList.contains('black')) {
+                        const middleIndex = (fromIndex + currentIndex) / 2;
+                        const middleSquare = board.children[middleIndex];
+
+                        
+                        if (middleSquare.innerText !== "" && middleSquare.innerText !== selectedSquare.innerText) {
+                            middleSquare.innerHTML = ""; 
+                            movePiece(selectedSquare, square); 
+                            console.log("กินสำเร็จ!");
+                        }
+                    }
+                    
+                    
+                    else if (square.innerText !== "") {
+                        selectedSquare.classList.remove('selected');
+                        selectedSquare = square;
+                        square.classList.add('selected');
+                    }
+                    
+                    
+                    else {
+                        selectedSquare.classList.remove('selected');
+                        selectedSquare = null;
+                    }
+                }
+            });
+
+            
+            isWhite = !isWhite;
+            if ((i + 1) % 8 === 0) isWhite = !isWhite;
+        }
+
+        
+        function movePiece(fromSquare, toSquare) {
+            toSquare.innerHTML = fromSquare.innerHTML;
+            fromSquare.innerHTML = "";
+            fromSquare.classList.remove('selected');
+            selectedSquare = null;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    .all {
+        display:flex;
+    }
+
+    .showfish {
+        background-color: rgb(236, 240, 205);
+    }
+    .helptools {
+        display: flex;
+        justify-content: flex-end;
+        background-color: brown;
+        height: 100px;
+        width: 100px;
+    }
+    .cushorbox {
+        display: flex;
+        width:200px;
+        background-color: aquamarine;
+    }
+
+    .cushorcount {
+        height: 10px;
+    }
+
+
+</style>
+<body>
+    <div class="all">
+        <div class="showfish">
+            <div>
+                <p id="display">0</p>
+            </div>
+            <div>
+                <p id="showtime">0</p>
+            </div>
+            <button id="btn">
+                <img src="/images/fishandbread.png" />
+            </button> 
+        </div>
+        
+        <div class="helptools">
+            <button class="cushorbox" id="cursor">
+                Curshor
+                
+            </button>
+            <div class="cushorcount">
+                <p id="mouse">0</p>
+                <p id="showprice">15</p>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</body>
+<script>
+
+    let a = 0;
+    let b = 0;
+    let price = 15;
+    let time = 0;
+    
+    const display = document.getElementById("display")
+    const showprice = document.getElementById("showprice")
+    const btn = document.getElementById("btn")
+    const cursor = document.getElementById("cursor")
+    const mouse = document.getElementById("mouse")
+    const showtime = document.getElementById("showtime")
+
+    const click = function click(){
+            a += 1
+            display.innerText = a;
+        }
+        
+    
+    
+    const cursor1 = function cursor1(){
+        
+        
+        if (display.innerText >= price){
+            if (b === 0){
+                display.innerText = a - price;
+                a = a - price
+
+                time += 30000
+                showtime.innerText = time
+                b += 1
+                price += 3
+
+                showprice.innerText = price
+                setInterval(click, time);
+                mouse.innerText = b;
+            }
+            
+            else if (b >= 1){
+
+                display.innerText = a - price;
+                a = a - price
+
+                time = time/2
+                showtime.innerText = time
+                b += 1
+                price += 3
+
+                showprice.innerText = price
+                setInterval(click, time);
+                mouse.innerText = b;
+            }
+
+            
+        }
+
+    }
+
+    btn.addEventListener("click",click)
+
+    cursor.addEventListener("click",cursor1)
+</script>
+</html>
