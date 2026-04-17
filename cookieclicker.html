@@ -7,28 +7,48 @@
 </head>
 <style>
 
+    * {
+        
+        margin:0;
+        padding: 0;
+        
+    }
+
     .all {
+        display:flex;
+        height: 100vh;
+    }
+    .showfish {
+        display: flex;           
+        flex-direction: column;  
+        align-items: center;     
+        justify-content: center; 
+        height: auto;
+        width: 70%;
+        
+        background-color: rgba(236, 240, 205, 0.884);
+    }
+
+    .showfish > .btn {
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+    .helptools {
+       
+        
+        background-color: rgba(245, 240, 240, 0.897);
+        
+        width: 30%;
+    }
+    .box {
         display:flex;
     }
 
-    .showfish {
-        background-color: rgb(236, 240, 205);
-    }
-    .helptools {
-        display: flex;
-        justify-content: flex-end;
-        background-color: brown;
-        height: 100px;
-        width: 100px;
-    }
-    .cushorbox {
-        display: flex;
-        width:200px;
-        background-color: aquamarine;
-    }
-
-    .cushorcount {
-        height: 10px;
+    #btn > img {
+        width: 150px;
+        height:250px;
     }
 
 
@@ -48,26 +68,38 @@
         </div>
         
         <div class="helptools">
-            <button class="cushorbox" id="cursor">
-                Curshor
-                
-            </button>
-            <div class="cushorcount">
-                <p id="mouse">0</p>
-                <p id="showprice">15</p>
+            <div class="box">
+                <button class="cushorbox" id="cursor">
+                    Curshor
+                </button>
+                <div class="cushorcount">
+                    <p id="mouse">0</p>
+                    <p id="showprice">15</p>
+                </div>
             </div>
+            <div class="box">
+                <button class="cushorbox" id="cursor">
+                    Curshor
+                </button>
+                <div class="cushorcount">
+                    <p id="mouse">0</p>
+                    <p id="showprice">15</p>
+                </div>
+            </div>
+            
             
         </div>
         
     </div>
     
 </body>
-<script>
+html<script>
 
     let a = 0;
     let b = 0;
     let price = 15;
     let time = 0;
+    let intervalId = null;
     
     const display = document.getElementById("display")
     const showprice = document.getElementById("showprice")
@@ -86,7 +118,7 @@
     const cursor1 = function cursor1(){
         
         
-        if (display.innerText >= price){
+        if (a >= price){
             if (b === 0){
                 display.innerText = a - price;
                 a = a - price
@@ -97,7 +129,8 @@
                 price += 3
 
                 showprice.innerText = price
-                setInterval(click, time);
+                clearInterval(intervalId);
+                intervalId = setInterval(click, time);
                 mouse.innerText = b;
             }
             
@@ -112,7 +145,8 @@
                 price += 3
 
                 showprice.innerText = price
-                setInterval(click, time);
+                clearInterval(intervalId);
+                intervalId = setInterval(click, time);
                 mouse.innerText = b;
             }
 
